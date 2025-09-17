@@ -38,8 +38,6 @@ public class AuthController {
     @Value("${spring.security.oauth2.client.registration.naver.client-id}")
     private String naverClientId;
 
-    // ==================== Google OAuth ====================
-
     @GetMapping("/google")
     public RedirectView initiateGoogleLogin() {
         log.info("Google OAuth 로그인 시작");
@@ -81,8 +79,6 @@ public class AuthController {
             return new RedirectView(redirectUrl);
         }
     }
-
-    // ==================== Kakao OAuth ====================
 
     @GetMapping("/kakao")
     public RedirectView initiateKakaoLogin() {
@@ -126,8 +122,6 @@ public class AuthController {
             return new RedirectView(redirectUrl);
         }
     }
-
-    // ==================== Naver OAuth ====================
 
     @GetMapping("/naver")
     public RedirectView initiateNaverLogin() {
@@ -173,8 +167,6 @@ public class AuthController {
         }
     }
 
-    // ==================== SMS 로그인 ====================
-
     @PostMapping("/sms")
     public ResponseEntity<ApiResponse> smsLogin(@RequestBody SmsLoginRequest request) {
         log.info("SMS 로그인 요청 - phone: {}", request.getPhone());
@@ -192,8 +184,6 @@ public class AuthController {
             return ResponseEntity.badRequest().body(response);
         }
     }
-
-    // ==================== 토큰 검증 ====================
 
     @GetMapping("/verify")
     public ResponseEntity<ApiResponse> verifyToken(@RequestParam String token) {

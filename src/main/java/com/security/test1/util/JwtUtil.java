@@ -23,15 +23,11 @@ public class JwtUtil {
     private long expiration;
 
     private SecretKey getSigningKey() {
-        // secret이 충분히 긴지 확인 (최소 32자)
         String actualSecret = secret.length() >= 32 ? secret :
                 secret + "additionalSecretToMakeItLongEnough123456";
         return Keys.hmacShaKeyFor(actualSecret.getBytes(StandardCharsets.UTF_8));
     }
 
-    /**
-     * JWT 토큰 생성
-     */
     public String generateToken(String email, String name, String picture) {
         try {
             Date now = new Date();
@@ -61,9 +57,6 @@ public class JwtUtil {
         }
     }
 
-    /**
-     * JWT 토큰 검증
-     */
     public boolean validateToken(String token) {
         try {
             Claims claims = Jwts.parserBuilder()
@@ -96,9 +89,6 @@ public class JwtUtil {
         }
     }
 
-    /**
-     * JWT에서 이메일 추출
-     */
     public String extractEmail(String token) {
         try {
             Claims claims = getClaims(token);
@@ -109,9 +99,6 @@ public class JwtUtil {
         }
     }
 
-    /**
-     * JWT에서 이름 추출
-     */
     public String extractName(String token) {
         try {
             Claims claims = getClaims(token);
@@ -122,9 +109,6 @@ public class JwtUtil {
         }
     }
 
-    /**
-     * JWT에서 프로필 사진 URL 추출
-     */
     public String extractPicture(String token) {
         try {
             Claims claims = getClaims(token);
@@ -135,9 +119,6 @@ public class JwtUtil {
         }
     }
 
-    /**
-     * JWT에서 사용자 ID 추출
-     */
     public String extractSubject(String token) {
         try {
             Claims claims = getClaims(token);
@@ -148,9 +129,6 @@ public class JwtUtil {
         }
     }
 
-    /**
-     * JWT 토큰 만료 시간 확인
-     */
     public Date extractExpiration(String token) {
         try {
             Claims claims = getClaims(token);
@@ -161,9 +139,6 @@ public class JwtUtil {
         }
     }
 
-    /**
-     * JWT 토큰이 만료되었는지 확인
-     */
     public boolean isTokenExpired(String token) {
         try {
             Date expiration = extractExpiration(token);
@@ -174,9 +149,6 @@ public class JwtUtil {
         }
     }
 
-    /**
-     * JWT에서 모든 클레임 추출
-     */
     public Map<String, Object> extractAllClaims(String token) {
         try {
             Claims claims = getClaims(token);
@@ -196,9 +168,6 @@ public class JwtUtil {
         }
     }
 
-    /**
-     * JWT에서 Claims 추출 (내부 메서드)
-     */
     private Claims getClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
@@ -207,9 +176,6 @@ public class JwtUtil {
                 .getBody();
     }
 
-    /**
-     * 토큰 디버그 정보 출력
-     */
     public void debugToken(String token) {
         try {
             log.info("=== JWT 토큰 디버그 정보 ===");
@@ -219,16 +185,13 @@ public class JwtUtil {
             log.info("토큰 파트 수: {}", parts.length);
 
             if (parts.length == 3) {
-                // Header 디코딩
                 String header = new String(java.util.Base64.getUrlDecoder().decode(parts[0]));
                 log.info("헤더: {}", header);
 
-                // Payload 디코딩
                 String payload = new String(java.util.Base64.getUrlDecoder().decode(parts[1]));
                 log.info("페이로드: {}", payload);
             }
 
-            // Claims 추출
             Claims claims = getClaims(token);
             log.info("클레임: {}", claims);
 

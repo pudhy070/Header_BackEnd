@@ -44,22 +44,16 @@ public class OAuthService {
         this.objectMapper = new ObjectMapper();
     }
 
-    /**
-     * Google OAuth 처리 알고리즘
-     */
     public OAuthAttributes processGoogleCallback(String code) {
         try {
             log.info("Google OAuth 처리 시작 - code: {}", code);
 
-            // 1단계: Authorization Code로 Access Token 획득
             String accessToken = getGoogleAccessToken(code);
             log.info("Google Access Token 획득 성공");
 
-            // 2단계: Access Token으로 사용자 정보 조회
             Map<String, Object> userInfo = getGoogleUserInfo(accessToken);
             log.info("Google 사용자 정보 조회 성공: {}", userInfo);
 
-            // 3단계: OAuthAttributes 객체 생성
             return createGoogleOAuthAttributes(userInfo);
 
         } catch (Exception e) {
@@ -68,22 +62,16 @@ public class OAuthService {
         }
     }
 
-    /**
-     * Kakao OAuth 처리 알고리즘
-     */
     public OAuthAttributes processKakaoCallback(String code) {
         try {
             log.info("Kakao OAuth 처리 시작 - code: {}", code);
 
-            // 1단계: Authorization Code로 Access Token 획득
             String accessToken = getKakaoAccessToken(code);
             log.info("Kakao Access Token 획득 성공");
 
-            // 2단계: Access Token으로 사용자 정보 조회
             Map<String, Object> userInfo = getKakaoUserInfo(accessToken);
             log.info("Kakao 사용자 정보 조회 성공: {}", userInfo);
 
-            // 3단계: OAuthAttributes 객체 생성
             return createKakaoOAuthAttributes(userInfo);
 
         } catch (Exception e) {
@@ -92,22 +80,16 @@ public class OAuthService {
         }
     }
 
-    /**
-     * Naver OAuth 처리 알고리즘
-     */
     public OAuthAttributes processNaverCallback(String code, String state) {
         try {
             log.info("Naver OAuth 처리 시작 - code: {}, state: {}", code, state);
 
-            // 1단계: Authorization Code로 Access Token 획득
             String accessToken = getNaverAccessToken(code, state);
             log.info("Naver Access Token 획득 성공");
 
-            // 2단계: Access Token으로 사용자 정보 조회
             Map<String, Object> userInfo = getNaverUserInfo(accessToken);
             log.info("Naver 사용자 정보 조회 성공: {}", userInfo);
 
-            // 3단계: OAuthAttributes 객체 생성
             return createNaverOAuthAttributes(userInfo);
 
         } catch (Exception e) {
@@ -116,7 +98,6 @@ public class OAuthService {
         }
     }
 
-    // ==================== Google 관련 메서드 ====================
 
     private String getGoogleAccessToken(String code) throws Exception {
         String tokenUrl = "https://oauth2.googleapis.com/token";
@@ -167,8 +148,6 @@ public class OAuthService {
                 (String) userInfo.get("picture")
         );
     }
-
-    // ==================== Kakao 관련 메서드 ====================
 
     private String getKakaoAccessToken(String code) throws Exception {
         String tokenUrl = "https://kauth.kakao.com/oauth/token";
@@ -228,8 +207,6 @@ public class OAuthService {
                 (String) profile.get("profile_image_url")
         );
     }
-
-    // ==================== Naver 관련 메서드 ====================
 
     private String getNaverAccessToken(String code, String state) throws Exception {
         String tokenUrl = "https://nid.naver.com/oauth2.0/token";
