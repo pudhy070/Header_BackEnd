@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>대시보드</title>
+    <link rel="stylesheet" href="dashboard.css" />
+
+</head>
+<body>
+<div class="dashboard-container">
+    <div class="header">
+        <img th:src="${picture}" alt="프로필 사진" class="profile-image"
+             th:if="${picture != null}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxjaXJjbGUgY3g9IjUwIiBjeT0iMzciIHI9IjE1IiBmaWxsPSIjOUI5QkExIi8+CjxwYXRoIGQ9Im0yMCA3NGMwLTEwIDEzLjQzLTE1IDMwLTE1czMwIDUgMzAgMTUiIGZpbGw9IiM5QjlCQTEiLz4KPC9zdmc+'">
+        <div th:if="${picture == null}" style="width: 100px; height: 100px; background: #ddd; border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 2rem;">👤</div>
+        <h1>환영합니다!</h1>
+        <p>로그인이 성공적으로 완료되었습니다.</p>
+    </div>
+
+    <div class="content">
+        <div class="welcome-message">
+            <h3>🎉 OAuth2 로그인 성공!</h3>
+            <p>아래는 소셜 로그인을 통해 받아온 사용자 정보입니다.</p>
+        </div>
+
+        <div class="user-info">
+            <div class="info-card">
+                <div class="info-label">이름</div>
+                <div class="info-value" th:text="${name}">사용자명</div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-label">이메일</div>
+                <div class="info-value" th:text="${email}">user@example.com</div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-label">로그인 상태</div>
+                <div class="info-value">✅ 인증됨</div>
+            </div>
+        </div>
+
+        <div class="actions">
+            <a href="/" class="btn btn-primary">홈으로</a>
+            <form action="/logout" method="post" style="display: inline;">
+                <button type="submit" class="btn btn-secondary">로그아웃</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

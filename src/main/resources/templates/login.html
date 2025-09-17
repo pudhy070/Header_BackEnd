@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소셜 로그인</title>
+    <link rel="stylesheet" href="login.css"/>
+
+</head>
+<body>
+<div class="login-container">
+    <h2>소셜 로그인</h2>
+
+    <div class="social-buttons">
+        <a href="/oauth2/authorization/google" class="social-btn google-btn">
+            <span class="btn-icon">🔍</span>
+            Google로 로그인
+        </a>
+
+        <a href="/oauth2/authorization/naver" class="social-btn naver-btn">
+            <span class="btn-icon">🟢</span>
+            네이버로 로그인
+        </a>
+
+        <a href="/oauth2/authorization/kakao" class="social-btn kakao-btn">
+            <span class="btn-icon">💬</span>
+            카카오로 로그인
+        </a>
+    </div>
+
+    <a href="/" class="back-link">← 메인으로 돌아가기</a>
+</div>
+</body>
+</html>
